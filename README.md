@@ -1,9 +1,10 @@
 # Exercise: Parameterized Action Creators
 
-Checkout the exercise branch on your computer:
+Checkout the exercise branch on your computer and install dependencies:
 
 ```
 $ git checkout 03-exercise_action-creators
+$ npm install
 ```
 
 A new feature request has come in - users want to be able to multiply numbers by any factor.
