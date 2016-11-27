@@ -1,15 +1,7 @@
-# Exercise: Parameterized Action Creators
+# Solution: Parameterized Action Creators
 
-Checkout the exercise branch on your computer:
+Make an action creator that takes an argument and passes it as a property of the action object.
 
-```
-$ git checkout 03-exercise_action-creators
-```
+In the reducer handle that action by multiplying the state by the value of the property.
 
-A new feature request has come in - users want to be able to multiply numbers by any factor.
-
-Add an action and corresponding handler to the reducer to make the new unit tests pass.
-
-When you're done commit and push your changes.
-
-Hint: Actions can carry more than just a `type` value.
+There is a convention called [Flux Standard Actions](https://github.com/acdlite/flux-standard-action) (FSA) which sets some expectations for what a plain action object should look like. It recommends data is sent with the action using the `payload` property.

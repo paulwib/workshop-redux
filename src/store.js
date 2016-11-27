@@ -12,6 +12,8 @@ function counter (state, action) {
       return state - 1;
     case 'DOUBLE':
       return state * 2;
+    case 'MULTIPLY':
+      return state * action.payload;
     default:
       return state;
   }
@@ -30,8 +32,12 @@ function double () {
   return { type: 'DOUBLE' };
 }
 
+function multiply (factor) {
+  return { type: 'MULTIPLY', payload: factor };
+}
+
 // Export store and it's related actions - using object literal property assignment
 module.exports = {
   createStore,
-  actions: { increment, decrement, double }
+  actions: { increment, decrement, double, multiply }
 };
