@@ -1,37 +1,18 @@
-const redux = require('redux');
+// Using object destructuring to assign exported properties
+const { createStore, actions } = require('./store');
+const render = require('./render');
 
-// Store is created with reducer and inital state
-const store = redux.createStore(counter, 0);
-
-// Reducer is passed state and action and returns the new state
-function counter (state, action) {
-  switch (action.type) {
-    case 'INCREMENT':
-      return state + 1;
-    case 'DECREMENT':
-      return state - 1;
-    case 'DOUBLE':
-      return state * 2;
-    default:
-      return state;
-  }
-}
-
-// View is a function of state - in this case `state` is just a number so not much to do
-function render (state) {
-  return state;
-}
+// Create the store
+const store = createStore();
 
 // Call render whenever state is changed
-store.subscribe(function () {
+store.subscribe(() => {
   let view = render(store.getState());
   console.log(view);
 });
 
-// Actions are just plain objects - by convention they have at least a `type` value
-store.dispatch({ type: 'INCREMENT' });
-store.dispatch({ type: 'DECREMENT' });
-store.dispatch({ type: 'INCREMENT' });
-store.dispatch({ type: 'DOUBLE' });
-
-
+// Using action creators abstracts away boilerplate
+store.dispatch(actions.increment());
+store.dispatch(actions.decrement());
+store.dispatch(actions.increment());
+store.dispatch(actions.double());
