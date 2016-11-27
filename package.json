@@ -2,10 +2,12 @@
   "name": "workshop-redux",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Paul Willoughby <paul.j.willoughby@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "redux": "^3.6.0"
+  }
 }
