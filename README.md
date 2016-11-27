@@ -2,7 +2,7 @@
 
 We're going on little tour of redux! In this workshop we'll cover the following topics:
 
-1. A Very Simple Example - Store, Actions and Reducers
+1. A Minimal Example - Store, Actions, Reducers and Rendering
 2. Using Action Creators
 3. Exercise: Add a Parameterized Action Creator
 4. A Slightly More Complicated Example - Multiple Reducers (yes, it will be a todo app)
@@ -22,3 +22,13 @@ We're going on little tour of redux! In this workshop we'll cover the following 
 18. Testing
 19. Exercise: Organise Files Nicely
 20. Wrap Up
+
+## Before We Start
+
+You'll need:
+
+* A working computer with git and Node.js 6.x installed.
+* A working knowledge of JavaScript ES6 - we will be using ES6 features supported in Node.js, but no babel so no `import` statements or `default` exports.
+* A fork of this repo's master (please don't skip ahead on branches) - create a branch called `workshop` rather than working on master.
+
+Note we won't be using `react-redux` or running anything in a browser for this workshop, this is purely about understanding how redux works.
