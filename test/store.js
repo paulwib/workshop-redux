@@ -30,3 +30,13 @@ test('actions.double() should double the value of state', assert => {
   assert.equal(store.getState(), 8);
   assert.end();
 });
+
+test('actions.multiply(n) should multiply the value of state by the given factor', assert => {
+  assert.plan(1);
+  let store = createStore(4);
+
+  store.dispatch(actions.multiply(3));
+
+  assert.equal(store.getState(), 12);
+  assert.end();
+});
