@@ -1,7 +1,7 @@
 // Using object destructuring to assign exported properties
 const createStore = require('./store');
 const render = require('./render');
-const { addItem, toggleItem, setVisibilityFilter, visibilityFilters } = require('./actions');
+const { addItem, toggleItem, removeItem, setVisibilityFilter, visibilityFilters } = require('./actions');
 
 // Create the store
 const store = createStore([ { text: 'Learn ES6', completed: true } ]);
@@ -17,3 +17,5 @@ store.dispatch(addItem('Learn redux'));
 store.dispatch(addItem('Learn react'));
 store.dispatch(toggleItem(1));
 store.dispatch(setVisibilityFilter(visibilityFilters.SHOW_INCOMPLETE));
+store.dispatch(setVisibilityFilter(visibilityFilters.SHOW_ALL));
+store.dispatch(removeItem(1));

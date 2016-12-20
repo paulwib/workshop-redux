@@ -64,7 +64,7 @@ test('Action removeItem(index) should remove an item', assert => {
 
   assert.deepEqual(testStore.getState().items, [
     { text: 'foo', completed: false },
-    { text: 'fred', completed: false },
+    { text: 'fred', completed: false }
   ]);
   assert.end();
 });
