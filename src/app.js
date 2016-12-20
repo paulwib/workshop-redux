@@ -1,9 +1,10 @@
 // Using object destructuring to assign exported properties
-const { createStore, actions } = require('./store');
+const createStore = require('./store');
 const render = require('./render');
+const { addItem, toggleItem, setVisibilityFilter, visibilityFilters } = require('./actions');
 
 // Create the store
-const store = createStore();
+const store = createStore([ { text: 'Learn ES6', completed: true } ]);
 
 // Call render whenever state is changed
 store.subscribe(() => {
@@ -11,8 +12,8 @@ store.subscribe(() => {
   console.log(view);
 });
 
-// Using action creators abstracts away boilerplate
-store.dispatch(actions.increment());
-store.dispatch(actions.decrement());
-store.dispatch(actions.increment());
-store.dispatch(actions.double());
+// Demo the effect of some actions
+store.dispatch(addItem('Learn redux'));
+store.dispatch(addItem('Learn react'));
+store.dispatch(toggleItem(1));
+store.dispatch(setVisibilityFilter(visibilityFilters.SHOW_INCOMPLETE));

@@ -1,32 +1,54 @@
+// Utilities
 const test = require('tape');
-const { createStore, actions } = require('../src/store');
 
-test('actions.increment() should increase the value of state', assert => {
+// Subject
+const createStore = require('../src/store');
+const { addItem, toggleItem, setVisibilityFilter, visibilityFilters } = require('../src/actions');
+
+test('Init store() should allow initial items', assert => {
   assert.plan(1);
-  let store = createStore();
 
-  store.dispatch(actions.increment());
+  let testStore = createStore([ { text: 'foo', completed: false } ]);
 
-  assert.equal(store.getState(), 1);
+  assert.deepEqual(testStore.getState().items, [ { text: 'foo', completed: false } ]);
   assert.end();
 });
 
-test('actions.decrement() should decrease the value of state', assert => {
+test('Action addItem() should add a new item', assert => {
   assert.plan(1);
-  let store = createStore();
+  let testStore = createStore();
 
-  store.dispatch(actions.decrement());
+  testStore.dispatch(addItem('foo'));
 
-  assert.equal(store.getState(), -1);
+  assert.deepEqual(testStore.getState().items, [ { text: 'foo', completed: false } ]);
   assert.end();
 });
 
-test('actions.double() should double the value of state', assert => {
+test('Action toggleItem() should mark item completed', assert => {
+  assert.plan(4);
+  let testStore = createStore([
+    { text: 'foo', completed: false },
+    { text: 'bar', completed: false },
+    { text: 'qux', completed: true },
+    { text: 'quux', completed: true }
+  ]);
+
+  testStore.dispatch(toggleItem(1));
+  testStore.dispatch(toggleItem(2));
+
+  assert.equal(testStore.getState().items[0].completed, false); // not toggled
+  assert.equal(testStore.getState().items[1].completed, true);  // toggled
+  assert.equal(testStore.getState().items[2].completed, false); // toggled
+  assert.equal(testStore.getState().items[3].completed, true);  // not toggled
+  assert.end();
+});
+
+test('Action setVisibilityFilter() should set the visibility filter', assert => {
   assert.plan(1);
-  let store = createStore(4);
+  let testStore = createStore();
 
-  store.dispatch(actions.double());
+  testStore.dispatch(setVisibilityFilter(visibilityFilters.SHOW_ALL));
 
-  assert.equal(store.getState(), 8);
+  assert.equal(testStore.getState().visibilityFilter, visibilityFilters.SHOW_ALL);
   assert.end();
 });

@@ -1,19 +1,20 @@
-# Action Creators
+# A More Complicated Example
 
-Manually typing out actions will quickly get dull. An action creator is a function that returns an action. Nothing magical.
+This example is a simple to-do app that allows you to store multiple items, mark them as completed and set a filter to show only incomplete items.
 
-Here we've also broken our app into `store` and `view` files. That allows us to add unit tests of our store. For now we'll leave our new action creators in the same file as the store.
+Things to note:
 
-We'll be using the `tape` library for testing and assertions. We'll use the plan-act-assert convention for our tests.
+* Actions split out into their own file.
+* Rather than relying on strings for our action names we define constants. Good practice for many reasons e.g. we can import the action names where needed.
+* The reducer has been split into multiple functions in one file.
+* Each function handles the actions it cares about and as before returns new state. `items()` is an array so a bit more complicated than just a number in the first example, need to use spread operator and `Object.assign()` to return new values, not mutate the old ones.
+* The main reducer returns a map that maps properties of the state to those functions, so they only deal with their own part of the state tree.
+* The reducer sets the default `completed` state, rather than the action.
+* The visibility filter only sets a value, it doesn't touch the state of the items - it's up to the render function to decide how to display values based on the current state, in this case hiding completed items if the filter has a specific value.
+* In the main store we can pass in the initial items, which could have been generated on the server.
+* We have tests! But not of the view :(
 
-We've also introduced a few ES6 features worth mentioning:
+ES6 features:
 
-* Object destructuring with `require`
-* Fat arrow syntax for anonymous functions
-* Default function arguments
-* Object literal property shorthand
-
-Question: Why did we export a `createStore` method rather than just the store itself? Didn't we say there could be only one?
-
-Answer: This is partly to allow us to pass an initial value, but more importantly it allows us to write unit tests. If we just exported an instance of `store` our unit tests would clobber each other as they won't know the initial state of the store. There is (rightly) no way to reset a store.
-
+* Using spread operator `...` to clone an array. It's fine to return the original item objects inside as their state has not been changed.
+* Using `Object.assign()` to shallow clone an item when completed.
