@@ -3,7 +3,7 @@ const test = require('tape');
 
 // Subject
 const createStore = require('../src/store');
-const { addItem, toggleItem, setVisibilityFilter, visibilityFilters } = require('../src/actions');
+const { addItem, toggleItem, removeItem, setVisibilityFilter, visibilityFilters } = require('../src/actions');
 
 test('Init store() should allow initial items', assert => {
   assert.plan(1);
@@ -52,3 +52,20 @@ test('Action setVisibilityFilter() should set the visibility filter', assert => 
   assert.equal(testStore.getState().visibilityFilter, visibilityFilters.SHOW_ALL);
   assert.end();
 });
+
+test('Action removeItem(index) should remove an item', assert => {
+  assert.plan(1);
+  let testStore = createStore();
+
+  testStore.dispatch(addItem('foo'));
+  testStore.dispatch(addItem('bar'));
+  testStore.dispatch(addItem('fred'));
+  testStore.dispatch(removeItem(1));
+
+  assert.deepEqual(testStore.getState().items, [
+    { text: 'foo', completed: false },
+    { text: 'fred', completed: false },
+  ]);
+  assert.end();
+});
+
