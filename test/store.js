@@ -90,3 +90,16 @@ test('Action requestItems() loads more items asynchronously', assert => {
   });
 });
 
+test('An isLoading flag is set while items are fetched from the server', assert => {
+  assert.plan(2);
+  let testStore = createStore();
+
+  let promise = testStore.dispatch(requestItem(testStore));
+
+  assert.equal(true, testStore.getState().isLoading);
+  promise.then(() => {
+    assert.equal(false, testStore.getState().isLoading);
+    assert.end();
+  });
+});
+
