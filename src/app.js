@@ -1,9 +1,9 @@
 const redux = require('redux');
 
-// Store is created with reducer and inital state
+// Store is created with reducer and initial state
 const store = redux.createStore(counter, 0);
 
-// Reducer is passed state and action and returns the new state
+// Reducer is passed current state and action and returns the new state
 function counter (state, action) {
   switch (action.type) {
     case 'INCREMENT':
