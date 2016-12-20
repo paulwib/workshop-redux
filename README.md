@@ -1,20 +1,9 @@
-# Exercise: Add Feature to Remove Items
+# Reducing Boilerplate Part 1 - `combineReducers()`
 
-Checkout the exercise branch on your computer and install dependencies:
+That reducer map follows a pattern - the object key, function name and state property all have the same name, surely there is a way to simplify this!
 
-```
-$ git checkout 05-exercise_remove-item
-$ npm install
-```
+Fortunately redux provides `combineReducers` for just this purpose. Just pass it an object of keys mapped to functions and it will work out that it should be called with just part of the state.
 
-A new feature request has come in - users want to be able to delete embarassing items forever.
+If the function name doesn't match the key you can still use the standard `key: function` syntax.
 
-Being a good TDD developer the test has already been created, but it fails. To run the tests:
-
-```
-$ node test/store.js
-```
-
-Add new actions and update reducers to make the test pass.
-
-When you're done commit and push your changes.
+Note this is the first time we had to require `redux` to get at it's utilities, previously it was just vanilla JS.

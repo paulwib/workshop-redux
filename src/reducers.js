@@ -1,4 +1,5 @@
 /* jshint -W138 */
+const redux = require('redux');
 
 // Import constants from actions
 const { ADD_ITEM, TOGGLE_ITEM, REMOVE_ITEM, SET_VISIBILITY_FILTER, visibilityFilters } = require('./actions');
@@ -29,10 +30,5 @@ function visibilityFilter (state = visibilityFilters.SHOW_ALL, action) {
   }
 }
 
-// Export a reducer function that maps state properties to above functions
-module.exports = function (state, action) {
-  return {
-    visibilityFilter: visibilityFilter(state.visibilityFilter, action),
-    items: items(state.items, action)
-  };
-};
+// Export a reducer function that combines the above reducers
+module.exports = redux.combineReducers({ items, visibilityFilter });
