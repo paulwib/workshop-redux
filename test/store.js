@@ -80,13 +80,13 @@ test('Action requestItems() loads more items asynchronously', assert => {
   assert.plan(1);
   let testStore = createStore();
 
-  testStore.dispatch(requestItem(testStore));
+  testStore.dispatch(requestItem(testStore))
 
-  setTimeout(() => {
+  .then(() => {
     assert.deepEqual(testStore.getState().items, [
       { text: 'from server 1', completed: false }
     ]);
     assert.end();
-  }, 1001);
+  });
 });
 

@@ -1,13 +1,9 @@
-# Async Actions - A Naive Approach
+# Async Actions - What the Thunk?
 
-There are a number of ways to handles async actions, such as loading data from a server. Here's an example of how *not* to do it.
+A more idiomatic way to handle async actions is to use the `redux-thunk` middleware. A middleware is a thing that is applied to the store and which will then be wrapped around every action that is dispatched on the store. A thunk is roughly a function that returns another function.
 
-In this example the `requestItem` action will start the call to the server, then immediately return a `REQUEST_ITEM` action to indicate the action is initiated. Then when the async call is complete it dispatches a `RECEIVE_ITEM` action directly on the store to say the item has been received, which it then appends to a new item list.
+In this case we return a function that dispatches an initial action then calls the async method and when complete dispatching the next action. This is similar to before with a couple of advantages:
 
-Issues with this:
-
-* The current store must be passed to the action.
-* The thing calling the action has no way of knowing when the action is completed.
-* This makes testing problematic, as have to set a timeout to wait for the action to complete.
-
-Anything else?
+* There is no need to pass the store around, the thunk passes the store's `dispatch` function to the thunked function.
+* The inner function can return a promise that the action invoker can chain a `then()` against.
+* The `getState()` function is also passed as the second argument if you needed to interrogate the current state, for example to check if a request was already in flight.

@@ -28,11 +28,13 @@ function setVisibilityFilter (filter) {
   return { type: SET_VISIBILITY_FILTER, payload: filter };
 }
 
-function requestItem (store) {
-  loadItem().then(item => {
-    store.dispatch({ type: RECEIVE_ITEM, payload: item });
-  });
-  return { type: REQUEST_ITEM };
+function requestItem () {
+  return function (dispatch) {
+    dispatch({ type: REQUEST_ITEM });
+    return loadItem().then(item => {
+      dispatch({ type: RECEIVE_ITEM, payload: item });
+    });
+  };
 }
 
 module.exports = {
