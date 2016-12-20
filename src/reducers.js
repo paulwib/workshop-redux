@@ -2,7 +2,14 @@
 const redux = require('redux');
 
 // Import constants from actions
-const { ADD_ITEM, TOGGLE_ITEM, REMOVE_ITEM, SET_VISIBILITY_FILTER, visibilityFilters } = require('./actions');
+const {
+  ADD_ITEM,
+  TOGGLE_ITEM,
+  REMOVE_ITEM,
+  RECEIVE_ITEM,
+  SET_VISIBILITY_FILTER,
+  visibilityFilters
+} = require('./actions');
 
 // `state` is just the items
 function items (state = [], action) {
@@ -15,6 +22,8 @@ function items (state = [], action) {
       });
     case REMOVE_ITEM:
       return state.filter((item, index) => index !== action.payload);
+    case RECEIVE_ITEM:
+      return [ ...state, action.payload ];
     default:
       return state;
   }

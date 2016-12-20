@@ -3,7 +3,14 @@ const test = require('tape');
 
 // Subject
 const createStore = require('../src/store');
-const { addItem, toggleItem, removeItem, setVisibilityFilter, visibilityFilters } = require('../src/actions');
+const {
+  addItem,
+  toggleItem,
+  removeItem,
+  requestItem,
+  setVisibilityFilter,
+  visibilityFilters
+} = require('../src/actions');
 
 test('Init store() should allow initial items', assert => {
   assert.plan(1);
@@ -67,5 +74,19 @@ test('Action removeItem(index) should remove an item', assert => {
     { text: 'fred', completed: false }
   ]);
   assert.end();
+});
+
+test('Action requestItems() loads more items asynchronously', assert => {
+  assert.plan(1);
+  let testStore = createStore();
+
+  testStore.dispatch(requestItem(testStore));
+
+  setTimeout(() => {
+    assert.deepEqual(testStore.getState().items, [
+      { text: 'from server 1', completed: false }
+    ]);
+    assert.end();
+  }, 1001);
 });
 

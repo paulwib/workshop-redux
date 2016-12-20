@@ -1,9 +1,13 @@
-# Reducing Boilerplate Part 1 - `combineReducers()`
+# Async Actions - A Naive Approach
 
-That reducer map follows a pattern - the object key, function name and state property all have the same name, surely there is a way to simplify this!
+There are a number of ways to handles async actions, such as loading data from a server. Here's an example of how *not* to do it.
 
-Fortunately redux provides `combineReducers` for just this purpose. Just pass it an object of keys mapped to functions and it will work out that it should be called with just part of the state.
+In this example the `requestItem` action will start the call to the server, then immediately return a `REQUEST_ITEM` action to indicate the action is initiated. Then when the async call is complete it dispatches a `RECEIVE_ITEM` action directly on the store to say the item has been received, which it then appends to a new item list.
 
-If the function name doesn't match the key you can still use the standard `key: function` syntax.
+Issues with this:
 
-Note this is the first time we had to require `redux` to get at it's utilities, previously it was just vanilla JS.
+* The current store must be passed to the action.
+* The thing calling the action has no way of knowing when the action is completed.
+* This makes testing problematic, as have to set a timeout to wait for the action to complete.
+
+Anything else?
