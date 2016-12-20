@@ -32,6 +32,7 @@ function requestItem (store) {
   loadItem().then(item => {
     store.dispatch({ type: RECEIVE_ITEM, payload: item });
   });
+
   return { type: REQUEST_ITEM };
 }
 

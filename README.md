@@ -7,7 +7,7 @@ In this example the `requestItem` action will start the call to the server, then
 Issues with this:
 
 * The current store must be passed to the action.
-* The thing calling the action has no way of knowing when the action is completed.
+* The thing calling the action has no way of knowing when the action is completed, because remember actions can only be plain objects and you'll get an error if you try to return the promise.
 * This makes testing problematic, as have to set a timeout to wait for the action to complete.
 
 Anything else?
