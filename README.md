@@ -20,3 +20,6 @@ Without adding any more middlewares, add an `isLoading` flag to the state while 
 When you're done commit and push your changes.
 
 Hint: We haven't done anything with the `REQUEST_ITEM` action yet.
+
+Bonus 1: update the `render()` to show loading state.
+Bonus 2: block loading additional items when a load is already in progress.
