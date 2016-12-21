@@ -1,20 +1,15 @@
-# Reducing Boilerplate Part 2 - `redux-actions`
+# Exercise: Use `createAction` and `handleActions`
 
-The `redux-actions` library is a set of utilities for creating action creators and handlers. It uses the conventions of Flux Standard Actions (FSA).
-
-First you can create actions:
+Checkout the exercise branch on your computer and install dependencies:
 
 ```
-const foo = createAction('FOO');
-foo(10)
+$ git checkout 14-exercise_redux-actions
+$ npm install
 ```
 
-This will dispatch an action like `{ action: 'FOO', payload: 10 }` i.e. by default the function argument is assigned to the payload of the action.
+Your colleague was recently fired over an argument about semi-colons. They had started refactoring the app to use `redux-actions` but didn't complete the work.
 
-Then you can handle actions:
+Continue the refactoring so all actions are created and handled using redux-actions. All the tests must pass.
 
-```
-const reducer = handleAction(foo);
-```
-
-The most basic action handler will set the state to whatever the value of `payload` is.
+* Hint: `createAction` can take a function
+* Hint: `handleActions` (plural) can create a reducer that handles multiple actions.
