@@ -6,7 +6,7 @@ const {
   ADD_ITEM,
   TOGGLE_ITEM,
   REMOVE_ITEM,
-  RECEIVE_ITEM,
+  REQUEST_ITEM,
   SET_VISIBILITY_FILTER,
   visibilityFilters
 } = require('./actions');
@@ -22,7 +22,7 @@ function items (state = [], action) {
       });
     case REMOVE_ITEM:
       return state.filter((item, index) => index !== action.payload);
-    case RECEIVE_ITEM:
+    case `${REQUEST_ITEM}_FULFILLED`:
       return [ ...state, action.payload ];
     default:
       return state;
@@ -39,5 +39,18 @@ function visibilityFilter (state = visibilityFilters.SHOW_ALL, action) {
   }
 }
 
+// `state` is just the isLoading boolean flag
+function isLoading (state = false, action) {
+  switch (action.type) {
+    case `${REQUEST_ITEM}_PENDING`:
+      return true;
+    case `${REQUEST_ITEM}_FULFILLED`:
+    case `${REQUEST_ITEM}_REJECTED`:
+      return false;
+    default:
+      return state;
+  }
+}
+
 // Export a reducer function that combines the above reducers
-module.exports = redux.combineReducers({ items, visibilityFilter });
+module.exports = redux.combineReducers({ items, visibilityFilter, isLoading });
