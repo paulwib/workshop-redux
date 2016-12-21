@@ -1,25 +1,15 @@
-# Exercise: Add an Async Action and Store `isLoading` State
+# Using Promise Middleware for Async Actions Part 1 - `redux-promise-middleware`
 
-Checkout the exercise branch on your computer and install dependencies:
+There are middlewares specifically designed to handle actions that use promises. The first one we'll try is `redux-promise-middleware`.
 
-```
-$ git checkout 09-exercise_async-loading-state
-$ npm install
-```
+This allows defining an action with a promise payload. It will take the action name e.g. `REQUEST_ITEM` and will dispatch 3 actions related to the promise:
 
-A new feature request has come in - we want to keep track of loading state when we're fetching items from the server.
+* `REQUEST_ITEM_PENDING` when the request starts
+* `REQUEST_ITEM_FULFILLED` when it completes successfully
+* `REQUEST_ITEM_REJECTED` if the promise rejects
 
-Being a good TDD developer the test has already been created, but it fails. To run the tests:
+These are the actions your reducer then has to handle. No action called `REQUEST_ITEM` will ever be fulfilled.
 
-```
-$ node test/store.js
-```
+Note we use a template string to concatenate the expected suffixes to the core action name.
 
-Without adding any more middlewares, add an `isLoading` flag to the state while an async action is in progress.
-
-When you're done commit and push your changes.
-
-Hint: We haven't done anything with the `REQUEST_ITEM` action yet.
-
-Bonus 1: update the `render()` to show loading state.
-Bonus 2: block loading additional items when a load is already in progress.
+It will still only return the plain action object, so if the action wants to `then()` on the promise it will need to take the action and do `action.payload.then(..)`. Or alternatively you can use it in combination with `redux-thunk` to dispatch the action and then return the promise.
