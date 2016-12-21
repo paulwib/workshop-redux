@@ -1,15 +1,18 @@
-# Using Promise Middleware for Async Actions Part 1 - `redux-promise-middleware`
+# Exercise - Handling Rejected Promises
 
-There are middlewares specifically designed to handle actions that use promises. The first one we'll try is `redux-promise-middleware`.
+Checkout the exercise branch on your computer and install dependencies:
 
-This allows defining an action with a promise payload. It will take the action name e.g. `REQUEST_ITEM` and will dispatch 3 actions related to the promise:
+```
+$ git checkout 11-exercise_rejected-promises
+$ npm install
+```
 
-* `REQUEST_ITEM_PENDING` when the request starts
-* `REQUEST_ITEM_FULFILLED` when it completes successfully
-* `REQUEST_ITEM_REJECTED` if the promise rejects
+Your colleague is handling promises with a combination of thunk and promise middleware. They've written a test that simulates the API returning an error. It looks like they're catching the error but they're still getting warnings about `UnhandledPromiseRejectionWarning` when they run the tests:
 
-These are the actions your reducer then has to handle. No action called `REQUEST_ITEM` will ever be fulfilled.
+```
+$ node test/store.js
+```
 
-Note we use a template string to concatenate the expected suffixes to the core action name.
+Why are they getting these warnings? Can you fix it without resorting to turning off these warnings or adding a global rejection handler or modifying the tests?
 
-It will still only return the plain action object, so if the action wants to `then()` on the promise it will need to take the action and do `action.payload.then(..)`. Or alternatively you can use it in combination with `redux-thunk` to dispatch the action and then return the promise.
+When you're done commit and push your changes.
