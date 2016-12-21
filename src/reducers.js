@@ -1,13 +1,14 @@
 /* jshint -W138 */
 const redux = require('redux');
+const handleAction = require('redux-actions').handleAction;
 
-// Import constants from actions
+// Import actions to handle
 const {
   ADD_ITEM,
   TOGGLE_ITEM,
   REMOVE_ITEM,
   REQUEST_ITEM,
-  SET_VISIBILITY_FILTER,
+  setVisibilityFilter,
   visibilityFilters
 } = require('./actions');
 
@@ -29,16 +30,6 @@ function items (state = [], action) {
   }
 }
 
-// `state` is just the visibility filter
-function visibilityFilter (state = visibilityFilters.SHOW_ALL, action) {
-  switch (action.type) {
-    case SET_VISIBILITY_FILTER:
-      return action.payload;
-    default:
-      return state;
-  }
-}
-
 // `state` is just the isLoading boolean flag
 function isLoading (state = false, action) {
   switch (action.type) {
@@ -53,4 +44,8 @@ function isLoading (state = false, action) {
 }
 
 // Export a reducer function that combines the above reducers
-module.exports = redux.combineReducers({ items, visibilityFilter, isLoading });
+module.exports = redux.combineReducers({
+  visibilityFilter: handleAction(setVisibilityFilter, undefined, visibilityFilters.SHOW_ALL),
+  isLoading,
+  items
+});
