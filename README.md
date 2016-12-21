@@ -1,18 +1,13 @@
-# Exercise - Handling Rejected Promises
+# Reducing Boilerplate Part 2 - `redux-actions`
 
-Checkout the exercise branch on your computer and install dependencies:
+The `redux-actions` library is a set of utilities for creating action creators and handlers. It uses the conventions of Flux Standard Actions (FSA).
 
-```
-$ git checkout 11-exercise_rejected-promises
-$ npm install
-```
-
-Your colleague is handling promises with a combination of thunk and promise middleware. They've written a test that simulates the API returning an error. It looks like they're catching the error but they're still getting warnings about `UnhandledPromiseRejectionWarning` when they run the tests:
+At it's simplest it you can do:
 
 ```
-$ node test/store.js
+const foo = createAction('FOO');
+foo(10)
 ```
 
-Why are they getting these warnings? Can you fix it without resorting to turning off these warnings or adding a global rejection handler or modifying the tests?
+This will dispatch an action like `{ action: 'FOO', payload: 10 }`.
 
-When you're done commit and push your changes.

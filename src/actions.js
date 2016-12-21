@@ -1,4 +1,5 @@
 const loadItem = require('./api');
+const createAction = require('redux-actions').createAction;
 
 // Create constants for action names
 const ADD_ITEM = 'ADD_ITEM';
@@ -50,5 +51,5 @@ module.exports = {
   toggleItem,
   removeItem,
   requestItem,
-  setVisibilityFilter
+  setVisibilityFilter: createAction(SET_VISIBILITY_FILTER)
 };

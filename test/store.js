@@ -4,7 +4,7 @@ const td = require('testdouble');
 
 // Use testdouble to stub the async API - note this won't work with 3rd-party dependencies
 const loadItem = td.replace('../src/api');
-td.when(loadItem()).thenResolve([{ text: 'from server 1', completed: false }]);
+td.when(loadItem()).thenResolve({ text: 'from server 1', completed: false });
 
 // Subject
 const createStore = require('../src/store');
@@ -108,7 +108,7 @@ test('An isLoading flag is set while items are fetched from the server', assert 
   });
 });
 
-test.only('Action requestItem() failing should leave existing items intact', assert => {
+test('Action requestItem() failing should leave existing items intact', assert => {
   td.when(loadItem(), { times: 1 }).thenReject();
   assert.plan(3);
   let testStore = createStore([ { text: 'foo', completed: false } ]);
