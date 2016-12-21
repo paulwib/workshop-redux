@@ -80,10 +80,9 @@ test('Action requestItems() loads more items asynchronously', assert => {
   assert.plan(1);
   let testStore = createStore();
 
-  let action = requestItem(testStore);
-  testStore.dispatch(action);
+  testStore.dispatch(requestItem(testStore))
 
-  action.payload.then(() => {
+  .then(() => {
     assert.deepEqual(testStore.getState().items, [
       { text: 'from server 1', completed: false }
     ]);
@@ -95,11 +94,10 @@ test('An isLoading flag is set while items are fetched from the server', assert 
   assert.plan(2);
   let testStore = createStore();
 
-  let action = requestItem(testStore);
-  testStore.dispatch(action);
+  let promise = testStore.dispatch(requestItem(testStore));
 
   assert.equal(true, testStore.getState().isLoading);
-  action.payload.then(() => {
+  promise.then(() => {
     assert.equal(false, testStore.getState().isLoading);
     assert.end();
   });

@@ -29,7 +29,12 @@ function setVisibilityFilter (filter) {
 }
 
 function requestItem () {
-  return { type: REQUEST_ITEM, payload: loadItem() };
+  return function (dispatch) {
+    let promise = loadItem();
+    dispatch({ type: REQUEST_ITEM, payload: promise });
+
+    return promise;
+  };
 }
 
 module.exports = {
